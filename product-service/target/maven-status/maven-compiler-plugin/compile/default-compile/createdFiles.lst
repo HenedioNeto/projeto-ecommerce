@@ -1,0 +1,11 @@
+com\ecommerce\produtos\config\SecurityConfig.class
+com\ecommerce\produtos\controller\ProdutoController.class
+com\ecommerce\produtos\model\Produto.class
+com\ecommerce\produtos\dto\ProdutoResponseDTO.class
+com\ecommerce\produtos\repository\ProdutoRepository.class
+com\ecommerce\produtos\security\JwtAuthenticationFilter.class
+com\ecommerce\produtos\security\JwtService.class
+com\ecommerce\produtos\service\ProdutoService.class
+com\ecommerce\produtos\dto\ProdutoResponseDTO$ProdutoResponseDTOBuilder.class
+com\ecommerce\produtos\ProductServiceApplication.class
+com\ecommerce\produtos\dto\ProdutoRequestDTO.class

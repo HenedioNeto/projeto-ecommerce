@@ -1,0 +1,5 @@
+com\ecommerce\usuarios\controller\UsuarioControllerTest.class
+com\ecommerce\usuarios\security\JwtServiceTest.class
+com\ecommerce\usuarios\repository\UsuarioRepositoryTest.class
+com\ecommerce\usuarios\integration\AuthIntegrationTest.class
+com\ecommerce\usuarios\service\UsuarioServiceTest.class

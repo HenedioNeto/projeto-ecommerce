@@ -1,22 +1,35 @@
-version: '3.8'
-
 services:
-  # Banco de dados PostgreSQL
-  postgres:
+  # Banco do User Service
+  postgres-user:
     image: postgres:15-alpine
-    container_name: ecommerce-postgres
+    container_name: postgres-user
     environment:
-      POSTGRES_DB: ecommerce_db      # Nome do banco
-      POSTGRES_USER: admin           # Usuário
-      POSTGRES_PASSWORD: admin123    # Senha
+      POSTGRES_DB: user_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
     ports:
-      - "5432:5432"                  # Porta do PostgreSQL
+      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_user_data:/var/lib/postgresql/data
     networks:
       - ecommerce-network
 
-  # pgAdmin - Interface gráfica para ver o banco
+  # Banco do Product Service
+  postgres-product:
+    image: postgres:15-alpine
+    container_name: postgres-product
+    environment:
+      POSTGRES_DB: product_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_product_data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-network
+
+  # pgAdmin
   pgadmin:
     image: dpage/pgadmin4
     container_name: ecommerce-pgadmin
@@ -26,12 +39,14 @@ services:
     ports:
       - "5050:80"
     depends_on:
-      - postgres
+      - postgres-user
+      - postgres-product
     networks:
       - ecommerce-network
 
 volumes:
-  postgres_data:
+  postgres_user_data:
+  postgres_product_data:
 
 networks:
   ecommerce-network:

@@ -1,0 +1,3 @@
+com\ecommerce\produtos\repository\ProdutoRepositoryTest.class
+com\ecommerce\produtos\service\ProdutoServiceTest.class
+com\ecommerce\produtos\controller\ProdutoControllerTest.class

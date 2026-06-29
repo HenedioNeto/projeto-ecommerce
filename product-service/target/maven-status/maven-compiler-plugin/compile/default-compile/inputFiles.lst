@@ -1,0 +1,10 @@
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\dto\ProdutoResponseDTO.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\dto\ProdutoRequestDTO.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\repository\ProdutoRepository.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\service\ProdutoService.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\config\SecurityConfig.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\model\Produto.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\security\JwtService.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\controller\ProdutoController.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\ProductServiceApplication.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\security\JwtAuthenticationFilter.java

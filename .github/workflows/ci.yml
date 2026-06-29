@@ -21,20 +21,41 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Make mvnw executable
-        run: chmod +x ./mvnw
+      # ========== USER SERVICE ==========
+      - name: Make mvnw executable (User Service)
+        run: chmod +x ./user-service/mvnw
 
-      - name: Cache Maven packages
+      - name: Cache Maven packages (User Service)
         uses: actions/cache@v3
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Run tests
-        run: ./mvnw clean test
+      - name: Run User Service tests
+        run: |
+          cd user-service
+          ./mvnw clean test
         env:
           SPRING_PROFILES_ACTIVE: test
 
-      - name: Build with Maven
-        run: ./mvnw package -DskipTests
+      - name: Build User Service
+        run: |
+          cd user-service
+          ./mvnw package -DskipTests
+
+      # ========== PRODUCT SERVICE ==========
+      - name: Make mvnw executable (Product Service)
+        run: chmod +x ./product-service/mvnw
+
+      - name: Run Product Service tests
+        run: |
+          cd product-service
+          ./mvnw clean test
+        env:
+          SPRING_PROFILES_ACTIVE: test
+
+      - name: Build Product Service
+        run: |
+          cd product-service
+          ./mvnw package -DskipTests

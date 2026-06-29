@@ -1,0 +1,16 @@
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\model\Role.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\dto\UsuarioResponseDTO.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\repository\UsuarioRepository.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\controller\AuthController.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\dto\LoginResponse.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\security\JwtService.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\model\Usuario.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\dto\UsuarioRequestDTO.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\service\UsuarioService.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\config\SwaggerConfig.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\dto\LoginRequest.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\controller\UsuarioController.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\service\CustomUserDetailsService.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\config\SecurityConfig.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\security\JwtAuthenticationFilter.java
+C:\Users\User\Desktop\projeto-ecommerce\user-service\src\main\java\com\ecommerce\usuarios\UsuariosApplication.java
