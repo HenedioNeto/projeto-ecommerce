@@ -29,38 +29,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         String method = request.getMethod();
 
-        System.out.println("🔍 Product Service - Path: " + path + ", Method: " + method);
-
-        // Ignora endpoints públicos (GET)
         if (path.startsWith("/api/produtos") && method.equals("GET")) {
-            System.out.println("✅ GET público - ignorando autenticação");
             filterChain.doFilter(request, response);
             return;
         }
 
         final String authHeader = request.getHeader("Authorization");
-        System.out.println("🔍 Auth Header: " + authHeader);
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("❌ Token não encontrado ou inválido");
             filterChain.doFilter(request, response);
             return;
         }
 
         final String token = authHeader.substring(7);
-        System.out.println("🔍 Token: " + token.substring(0, 20) + "...");
 
         try {
             final String userEmail = jwtService.extractUsername(token);
             String role = jwtService.extractRole(token);
 
-            System.out.println("🔍 Email: " + userEmail);
-            System.out.println("🔍 Role extraída: " + role);
-
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // A role vem como "ROLE_ADMIN" do token
                 List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
-                System.out.println("🔍 Authorities: " + authorities);
 
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userEmail,
@@ -68,11 +56,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         authorities
                 );
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-                System.out.println("✅ Autenticação configurada com sucesso!");
             }
         } catch (Exception e) {
-            System.out.println("❌ Erro ao validar token: " + e.getMessage());
-            e.printStackTrace();
+            filterChain.doFilter(request, response);
+            return;
         }
 
         filterChain.doFilter(request, response);
