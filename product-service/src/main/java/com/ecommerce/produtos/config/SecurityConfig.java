@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/produtos/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/produtos/*/estoque").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/produtos").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/produtos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/produtos/**").hasRole("ADMIN")

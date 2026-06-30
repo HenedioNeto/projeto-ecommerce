@@ -1,4 +1,3 @@
-// src/main/java/com/ecommerce/usuarios/model/Usuario.java
 package com.ecommerce.usuarios.model;
 
 import jakarta.persistence.*;
@@ -15,16 +14,16 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Entity                          // Diz que essa classe é uma tabela no banco
-@Table(name = "usuarios")       // Nome da tabela no PostgreSQL
-@Data                           // Gera getters, setters, toString, etc
-@Builder                        // Permite criar objetos de forma fácil
-@NoArgsConstructor              // Construtor sem argumentos
-@AllArgsConstructor             // Construtor com todos argumentos
+@Entity
+@Table(name = "usuarios")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario implements UserDetails {
 
-    @Id                         // Chave primária
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto incremento
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Nome é obrigatório")
@@ -33,7 +32,7 @@ public class Usuario implements UserDetails {
 
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email inválido")
-    @Column(unique = true, nullable = false)  // Email único no banco
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank(message = "Senha é obrigatória")
@@ -49,14 +48,12 @@ public class Usuario implements UserDetails {
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
 
-    // Antes de salvar pela primeira vez
     @PrePersist
     protected void onCreate() {
         dataCriacao = LocalDateTime.now();
         dataAtualizacao = LocalDateTime.now();
     }
 
-    // Antes de atualizar
     @PreUpdate
     protected void onUpdate() {
         dataAtualizacao = LocalDateTime.now();

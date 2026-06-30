@@ -17,6 +17,8 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 - Senhas criptografadas (BCrypt)
 - CRUD de produtos
 - Categorias e estoque
+- Carrinho de compras
+- Criacao de pedidos
 - Testes unitarios e de integracao
 - Docker + PostgreSQL
 - CI/CD com GitHub Actions
@@ -31,6 +33,7 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 - Docker
 - JUnit 5 + Mockito
 - GitHub Actions
+- Feign Client
 
 ### Arquitetura
 
@@ -47,6 +50,13 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
     - Categorias
     - Estoque
     - Banco: product_db (porta 5433)
+
+- **Order Service (porta 8083)**
+    - Carrinho de compras
+    - Criacao de pedidos
+    - Estatisticas de produtos
+    - Comunicacao com Product Service via Feign
+    - Banco: order_db (porta 5434)
 
 **Infraestrutura:**
 - PostgreSQL com Docker
@@ -77,6 +87,19 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 | PUT | /api/produtos/{id} | Atualizar | ADMIN |
 | DELETE | /api/produtos/{id} | Deletar | ADMIN |
 
+### Order Service (porta 8083)
+
+| Metodo | Rota | Descricao | Autenticacao |
+|--------|------|-----------|--------------|
+| POST | /api/carrinho/adicionar | Adicionar ao carrinho | Usuario logado |
+| GET | /api/carrinho | Buscar carrinho | Usuario logado |
+| DELETE | /api/carrinho | Limpar carrinho | Usuario logado |
+| POST | /api/pedidos | Criar pedido | Usuario logado |
+| GET | /api/pedidos | Listar pedidos | Usuario logado |
+| GET | /api/pedidos/{id} | Buscar pedido | Usuario logado |
+| GET | /api/pedidos/admin/produto/{id} | Pedidos por produto | ADMIN |
+| GET | /api/pedidos/admin/produto/{id}/estatisticas | Estatisticas do produto | ADMIN |
+
 ## Como Rodar
 
 ### Pre-requisitos
@@ -99,15 +122,8 @@ cd user-service
 # Em outro terminal:
 cd product-service
 ./mvnw spring-boot:run
-```
-### Testes
 
-```bash
-# Rodar testes do User Service
-cd user-service
-./mvnw clean test
-
-# Rodar testes do Product Service
-cd product-service
-./mvnw clean test
-```
+# 4. Rodar o Order Service (porta 8083)
+# Em outro terminal:
+cd order-service
+./mvnw spring-boot:run

@@ -6,5 +6,6 @@ C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecomme
 C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\model\Produto.java
 C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\security\JwtService.java
 C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\controller\ProdutoController.java
+C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\security\ServiceTokenValidator.java
 C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\ProductServiceApplication.java
 C:\Users\User\Desktop\projeto-ecommerce\product-service\src\main\java\com\ecommerce\produtos\security\JwtAuthenticationFilter.java

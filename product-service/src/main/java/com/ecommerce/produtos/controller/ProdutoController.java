@@ -2,6 +2,7 @@ package com.ecommerce.produtos.controller;
 
 import com.ecommerce.produtos.dto.ProdutoRequestDTO;
 import com.ecommerce.produtos.dto.ProdutoResponseDTO;
+import com.ecommerce.produtos.security.ServiceTokenValidator;
 import com.ecommerce.produtos.service.ProdutoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ProdutoController {
 
     private final ProdutoService produtoService;
+    private final ServiceTokenValidator serviceTokenValidator;
 
     // Endpoints públicos (qualquer um pode acessar)
     @GetMapping
@@ -58,5 +60,18 @@ public class ProdutoController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         produtoService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/estoque")
+    public ResponseEntity<ProdutoResponseDTO> atualizarEstoque(
+            @PathVariable Long id,
+            @RequestParam Integer quantidade,
+            @RequestHeader("Authorization") String authorization) {
+
+        if (!serviceTokenValidator.isValid(authorization)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        return ResponseEntity.ok(produtoService.atualizarEstoque(id, quantidade));
     }
 }

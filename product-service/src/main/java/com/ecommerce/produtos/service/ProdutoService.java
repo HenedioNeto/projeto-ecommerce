@@ -90,4 +90,18 @@ public class ProdutoService {
                 .categoria(produto.getCategoria())
                 .build();
     }
+
+    @Transactional
+    public ProdutoResponseDTO atualizarEstoque(Long id, Integer quantidade) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado!"));
+        produto.setEstoque(produto.getEstoque() - quantidade);
+
+        if (produto.getEstoque() < 0) {
+            throw new RuntimeException("Estoque insuficiente! Disponível: " + (produto.getEstoque() + quantidade));
+        }
+
+        Produto atualizado = produtoRepository.save(produto);
+        return toResponseDTO(atualizado);
+    }
 }

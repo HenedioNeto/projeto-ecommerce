@@ -64,14 +64,10 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-
-                        // Endpoints que só ADMIN pode acessar
                         .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasRole("ADMIN")
-
-                        // Qualquer outra requisição precisa estar autenticada
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

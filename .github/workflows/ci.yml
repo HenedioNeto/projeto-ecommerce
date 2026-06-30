@@ -59,3 +59,18 @@ jobs:
         run: |
           cd product-service
           ./mvnw package -DskipTests
+
+      # ========== ORDER SERVICE ==========
+
+      - name: Make mvnw executable (Order Service)
+        run: chmod +x ./order-service/mvnw || true
+
+      - name: Run Order Service tests
+        run: |
+            cd order-service
+            ./mvnw clean test --batch-mode
+
+      - name: Build Order Service
+        run: |
+            cd order-service
+            ./mvnw package -DskipTests

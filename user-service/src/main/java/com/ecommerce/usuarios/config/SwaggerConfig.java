@@ -19,7 +19,7 @@ public class SwaggerConfig {
                         .version("1.0.0")
                         .description("API para gerenciamento de usuários com autenticação JWT")
                         .contact(new Contact()
-                                .name("Seu Nome")
-                                .email("seu@email.com")));
+                                .name("Nome")
+                                .email("@email.com")));
     }
 }
