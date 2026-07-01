@@ -1,0 +1,5 @@
+com\ecommerce\gateway\config\CorsConfig.class
+com\ecommerce\gateway\filter\JwtAuthenticationFilter.class
+com\ecommerce\gateway\config\RateLimiterConfig.class
+com\ecommerce\gateway\controller\FallbackController.class
+com\ecommerce\gateway\GatewayApplication.class

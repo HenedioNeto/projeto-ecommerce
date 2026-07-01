@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +32,10 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -44,9 +49,19 @@ public class JwtService {
                 .getBody();
     }
 
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", userDetails.getAuthorities().iterator().next().getAuthority());
+
+        String role = userDetails.getAuthorities().stream()
+                .findFirst()
+                .map(auth -> auth.getAuthority())
+                .orElse("ROLE_CUSTOMER");
+        claims.put("role", role);
+
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -67,13 +82,5 @@ public class JwtService {
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
-    }
-
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    public String extractRole(String token) {
-        return null;
     }
 }

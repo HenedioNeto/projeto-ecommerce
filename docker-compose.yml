@@ -59,6 +59,14 @@ services:
     networks:
       - ecommerce-network
 
+  redis:
+    image: redis:7-alpine
+    container_name: ecommerce-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ecommerce-network
+
 volumes:
   postgres_user_data:
   postgres_product_data:

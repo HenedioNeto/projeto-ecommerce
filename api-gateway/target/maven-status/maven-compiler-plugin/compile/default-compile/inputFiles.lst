@@ -1,0 +1,5 @@
+C:\Users\User\Desktop\projeto-ecommerce\api-gateway\src\main\java\com\ecommerce\gateway\config\RateLimiterConfig.java
+C:\Users\User\Desktop\projeto-ecommerce\api-gateway\src\main\java\com\ecommerce\gateway\controller\FallbackController.java
+C:\Users\User\Desktop\projeto-ecommerce\api-gateway\src\main\java\com\ecommerce\gateway\filter\JwtAuthenticationFilter.java
+C:\Users\User\Desktop\projeto-ecommerce\api-gateway\src\main\java\com\ecommerce\gateway\GatewayApplication.java
+C:\Users\User\Desktop\projeto-ecommerce\api-gateway\src\main\java\com\ecommerce\gateway\config\CorsConfig.java

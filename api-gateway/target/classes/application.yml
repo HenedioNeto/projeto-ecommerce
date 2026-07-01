@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: api-gateway
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  cloud:
+    gateway:
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            key-resolver: "#{@ipKeyResolver}"
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 10
+
+      routes:
+        - id: product-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/produtos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: productService
+                fallbackUri: forward:/fallback/product
+
+        - id: user-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/usuarios/**, /api/auth/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: userService
+                fallbackUri: forward:/fallback/user
+
+        - id: order-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/carrinho/**, /api/pedidos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: orderService
+                fallbackUri: forward:/fallback/order
+
+server:
+  port: 8080
+
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      productService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+      userService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+      orderService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000

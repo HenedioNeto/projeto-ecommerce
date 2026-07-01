@@ -34,6 +34,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        String userEmail = request.getHeader("X-User-Email");
+        String userRole = request.getHeader("X-User-Role");
+
+        if (userEmail != null && !userEmail.isEmpty()) {
+            String roleName = userRole != null && !userRole.isEmpty() ? userRole : "CUSTOMER";
+            if (!roleName.startsWith("ROLE_")) {
+                roleName = "ROLE_" + roleName;
+            }
+
+            List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(roleName));
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                    userEmail,
+                    null,
+                    authorities
+            );
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -44,14 +65,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String token = authHeader.substring(7);
 
         try {
-            final String userEmail = jwtService.extractUsername(token);
+            final String email = jwtService.extractUsername(token);
             String role = jwtService.extractRole(token);
 
-            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
+            if (role == null || role.isEmpty()) {
+                role = "ROLE_CUSTOMER";
+            } else if (!role.startsWith("ROLE_")) {
+                role = "ROLE_" + role;
+            }
 
+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userEmail,
+                        email,
                         null,
                         authorities
                 );

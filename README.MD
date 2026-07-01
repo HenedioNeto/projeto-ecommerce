@@ -22,6 +22,7 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 - Testes unitarios e de integracao
 - Docker + PostgreSQL
 - CI/CD com GitHub Actions
+- API Gateway com Rate Limiting e Circuit Breaker
 
 ## Tecnologias
 
@@ -34,12 +35,22 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 - JUnit 5 + Mockito
 - GitHub Actions
 - Feign Client
+- Spring Cloud Gateway
+- Resilience4j (Circuit Breaker)
+- Redis (Rate Limiting)
 
 ### Arquitetura
 
 **Servicos:**
 
-- **User Service (porta 8080)**
+- **API Gateway (porta 8080)**
+    - Roteamento de requisicoes
+    - Rate Limiting (5 req/segundo)
+    - Circuit Breaker com fallback
+    - Autenticacao JWT
+    - CORS configurado
+
+- **User Service (porta 8081)**
     - CRUD de usuarios
     - Autenticacao JWT
     - Roles (ADMIN/CUSTOMER)
@@ -64,7 +75,11 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 
 ## Endpoints
 
-### User Service (porta 8080)
+### API Gateway (porta 8080)
+
+Todas as requisicoes passam pelo Gateway, que redireciona para os servicos correspondentes.
+
+### User Service (porta 8081)
 
 | Metodo | Rota | Descricao | Autenticacao |
 |--------|------|-----------|--------------|
@@ -111,19 +126,24 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 ### Passos
 
 ```bash
-# 1. Subir os bancos de dados
+# 1. Subir os bancos de dados e Redis
 docker compose up -d
 
-# 2. Rodar o User Service (porta 8080)
+# 2. Rodar o API Gateway (porta 8080)
+cd api-gateway
+./mvnw spring-boot:run
+
+# 3. Rodar o User Service (porta 8081)
+# Em outro terminal:
 cd user-service
 ./mvnw spring-boot:run
 
-# 3. Rodar o Product Service (porta 8082)
+# 4. Rodar o Product Service (porta 8082)
 # Em outro terminal:
 cd product-service
 ./mvnw spring-boot:run
 
-# 4. Rodar o Order Service (porta 8083)
+# 5. Rodar o Order Service (porta 8083)
 # Em outro terminal:
 cd order-service
 ./mvnw spring-boot:run
