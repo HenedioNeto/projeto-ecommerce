@@ -15,10 +15,14 @@ spring:
             key-resolver: "#{@ipKeyResolver}"
             redis-rate-limiter.replenishRate: 5
             redis-rate-limiter.burstCapacity: 10
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: false
 
       routes:
         - id: product-service
-          uri: http://localhost:8082
+          uri: lb://PRODUCT-SERVICE
           predicates:
             - Path=/api/produtos/**
           filters:
@@ -28,7 +32,7 @@ spring:
                 fallbackUri: forward:/fallback/product
 
         - id: user-service
-          uri: http://localhost:8081
+          uri: lb://USUARIO-SERVICE
           predicates:
             - Path=/api/usuarios/**, /api/auth/**
           filters:
@@ -38,7 +42,7 @@ spring:
                 fallbackUri: forward:/fallback/user
 
         - id: order-service
-          uri: http://localhost:8083
+          uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/carrinho/**, /api/pedidos/**
           filters:
@@ -68,3 +72,10 @@ resilience4j:
         slidingWindowSize: 10
         failureRateThreshold: 50
         waitDurationInOpenState: 10000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true

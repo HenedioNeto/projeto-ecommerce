@@ -34,12 +34,10 @@ public class JwtAuthenticationFilter implements GatewayFilter {
         String method = request.getMethod().name();
 
         if (path.startsWith("/api/produtos") && method.equals("GET")) {
-            System.out.println("Rota pública: " + path);
             return chain.filter(exchange);
         }
 
         if (path.contains("/api/auth/login")) {
-            System.out.println("Login público: " + path);
             return chain.filter(exchange);
         }
 

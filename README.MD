@@ -23,6 +23,7 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 - Docker + PostgreSQL
 - CI/CD com GitHub Actions
 - API Gateway com Rate Limiting e Circuit Breaker
+- Service Discovery com Eureka
 
 ## Tecnologias
 
@@ -38,10 +39,16 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 - Spring Cloud Gateway
 - Resilience4j (Circuit Breaker)
 - Redis (Rate Limiting)
+- Netflix Eureka (Service Discovery)
 
 ### Arquitetura
 
 **Servicos:**
+
+- **Eureka Server (porta 8761)**
+    - Service Discovery
+    - Registro e descoberta de servicos
+    - Dashboard de monitoramento
 
 - **API Gateway (porta 8080)**
     - Roteamento de requisicoes
@@ -71,9 +78,16 @@ Sistema de e-commerce construido com microservicos em Java Spring Boot, com aute
 
 **Infraestrutura:**
 - PostgreSQL com Docker
+- Redis para Rate Limiting
 - GitHub Actions para CI/CD
+- Eureka para Service Discovery
 
 ## Endpoints
+
+### Eureka Dashboard
+
+Acesse o dashboard do Eureka para visualizar todos os servicos registrados:
+http://localhost:8761
 
 ### API Gateway (porta 8080)
 
@@ -129,21 +143,26 @@ Todas as requisicoes passam pelo Gateway, que redireciona para os servicos corre
 # 1. Subir os bancos de dados e Redis
 docker compose up -d
 
-# 2. Rodar o API Gateway (porta 8080)
+# 2. Rodar o Eureka Server (porta 8761)
+cd eureka-server
+./mvnw spring-boot:run
+
+# 3. Rodar o API Gateway (porta 8080)
+# Em outro terminal:
 cd api-gateway
 ./mvnw spring-boot:run
 
-# 3. Rodar o User Service (porta 8081)
+# 4. Rodar o User Service (porta 8081)
 # Em outro terminal:
 cd user-service
 ./mvnw spring-boot:run
 
-# 4. Rodar o Product Service (porta 8082)
+# 5. Rodar o Product Service (porta 8082)
 # Em outro terminal:
 cd product-service
 ./mvnw spring-boot:run
 
-# 5. Rodar o Order Service (porta 8083)
+# 6. Rodar o Order Service (porta 8083)
 # Em outro terminal:
 cd order-service
 ./mvnw spring-boot:run
